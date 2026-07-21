@@ -3,7 +3,7 @@
   "share": "disabled",
   "lsp": true,
   "formatter": true,
-  "instructions": ["AGENTS.md"],
+  "instructions": ["AGENTS.md", "PERSONAL.md"],
   "skills": {
     "paths": ["~/.config/opencode/skills"]
   },

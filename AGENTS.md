@@ -19,10 +19,10 @@
 
 ## Core Principles
 
-- Search first — always use grep/glob/websearch before guessing
+- Search first, always use grep/glob/websearch before guessing
 - Follow existing code conventions in the target repo
 - No AI slop patterns (no "delve", "leverage", "robust", "seamless")
-- No unnecessary comments — code should be self-documenting
+- No unnecessary comments, code should be self-documenting
 - No generic variable names (temp, data, result) without context
 
 ## Git Conventions (Conventional Commits)

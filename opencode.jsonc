@@ -3,14 +3,8 @@
   "share": "disabled",
   "lsp": true,
   "formatter": true,
-  "instructions": ["AGENTS.md", "PERSONAL.md"],
+  "instructions": ["AGENTS.md"],
   "skills": {
     "paths": ["~/.config/opencode/skills"]
-  },
-  "permission": {
-    "external_directory": {
-      "~/AppData/Local/Temp/*": "allow",
-      "*": "ask"
-    }
   }
 }

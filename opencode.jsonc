@@ -5,6 +5,6 @@
   "formatter": true,
   "instructions": ["AGENTS.md"],
   "skills": {
-    "paths": ["~/.config/opencode/skills"]
-  }
+    "paths": ["~/.config/opencode/skills"],
+  },
 }

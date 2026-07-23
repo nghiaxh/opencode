@@ -14,8 +14,9 @@
 - Use `Set-Content` or `Out-File` instead of `echo >`
 - Path separators: use backslashes `\` in native PowerShell
 - Enclose paths with spaces in double quotes
-- Use semicolons `;` to chain dependent commands
+- Use semicolons `;` to chain commands, never `&&`
 - Use `$?` to check previous command success
+- Never use `2>&1`; use `-RedirectStandardError` or `-ErrorAction` instead
 
 ## Core Principles
 
@@ -24,6 +25,8 @@
 - No AI slop patterns (no "delve", "leverage", "robust", "seamless")
 - No unnecessary comments, code should be self-documenting
 - No generic variable names (temp, data, result) without context
+- Respond in English or Vietnamese; use Vietnamese if user types Vietnamese
+- Never include Chinese characters in responses
 
 ## Git Conventions (Conventional Commits)
 

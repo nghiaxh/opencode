@@ -7,6 +7,7 @@
 - Use `$?` to check previous command success
 - Paths with spaces must be double-quoted
 - Backslashes `\` for native PowerShell paths
+- DO NOT USE `2>&1` — use `*>$1` or `$ErrorActionPreference` instead
 
 ## Core Principles
 

@@ -2,21 +2,11 @@
 
 ## Windows Environment
 
-- Use PowerShell commands, not Bash/Zsh
-- Use `Get-ChildItem` instead of `ls`/`find`
-- Use `Select-String` instead of `grep`
-- Use `Test-Path` instead of `test -f`
-- Use `Set-Location` instead of `cd`
-- Use `Remove-Item` instead of `rm`
-- Use `Copy-Item` instead of `cp`
-- Use `Move-Item` instead of `mv`
-- Use `Get-Content` instead of `cat`/`head`/`tail`
-- Use `Set-Content` or `Out-File` instead of `echo >`
-- Path separators: use backslashes `\` in native PowerShell
-- Enclose paths with spaces in double quotes
+- PowerShell only — never Bash/Zsh
 - Use semicolons `;` to chain commands, never `&&`
 - Use `$?` to check previous command success
-- Never use `2>&1`; use `-RedirectStandardError` or `-ErrorAction` instead
+- Paths with spaces must be double-quoted
+- Backslashes `\` for native PowerShell paths
 
 ## Core Principles
 
@@ -28,17 +18,34 @@
 - Respond in English or Vietnamese; use Vietnamese if user types Vietnamese
 - Never include Chinese characters in responses
 
+## Code Quality
+
+- Handle errors explicitly — no silent catches
+- Prefer specific error types over generic `Error`
+- Don't abstract prematurely — duplicate first, extract when pattern is clear
+- Keep functions focused — one responsibility per function
+- Prefer `const` over `let`, never `var`
+- Validate inputs at system boundaries
+
+## File Organization
+
+- Prefer editing existing files — never create new files unless required
+- Check neighboring files for conventions before creating new ones
+- Config files: keep in project root or standard locations (`.config/`, etc.)
+- Delete dead code rather than commenting it out
+
+## Testing
+
+- Check README or `package.json`/`Cargo.toml`/`pom.xml` for test commands before assuming
+- Run tests after completing changes if a test suite exists
+- Don't add tests unless explicitly asked
+- Use colocated test files when the project convention does so
+
 ## Git Conventions (Conventional Commits)
 
-Format: `<type>[optional scope]: <description>`
-
+Format: `<type>[optional scope]: <description>` — lowercase, imperative mood, no period.
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`, `chore`, `revert`
-
-Rules:
-- Imperative mood: "add feature" not "added feature"
-- Start lowercase, no period at end
-- Subject <=50 chars, body wrapped at 72 chars
-- Breaking changes: `feat!: description`
+Project-level AGENTS.md may override with project-specific conventions.
 
 ## Security
 
@@ -48,7 +55,10 @@ Rules:
 ## Verification
 
 Before completing any task:
-- Code follows project conventions
-- No AI slop patterns
-- Git commits follow conventional format
-- No secrets exposed
+- Code follows project conventions (check neighboring files first)
+- No AI slop patterns in output
+- No secrets, keys, or tokens exposed
+- Git commit follows conventional format (if committing)
+- Lint/typecheck passes (if available: `npm run lint`, `npm run typecheck`)
+- Tests pass (if test suite exists)
+- No unnecessary comments added

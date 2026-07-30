@@ -2,12 +2,12 @@
 
 ## Windows Environment
 
-- PowerShell only — never Bash/Zsh
+- DO NOT USE `2>&1` — use `$ErrorActionPreference` instead
 - Use semicolons `;` to chain commands, never `&&`
+- PowerShell only — never Bash/Zsh
 - Use `$?` to check previous command success
 - Paths with spaces must be double-quoted
 - Backslashes `\` for native PowerShell paths
-- DO NOT USE `2>&1` — use `*>$1` or `$ErrorActionPreference` instead
 
 ## Core Principles
 
@@ -26,7 +26,6 @@
 - Don't abstract prematurely — duplicate first, extract when pattern is clear
 - Keep functions focused — one responsibility per function
 - Prefer `const` over `let`, never `var`
-- Validate inputs at system boundaries
 
 ## File Organization
 
@@ -50,8 +49,16 @@ Project-level AGENTS.md may override with project-specific conventions.
 
 ## Security
 
-- Never commit secrets, API keys, or tokens
-- Validate all user inputs at system boundaries
+- Never commit secrets, API keys, tokens, or credentials — use environment variables or vaults (e.g., `dotenv`, `op`).
+- Scan code for hardcoded secrets before every commit (e.g., `gitleaks`, `trufflehog`, or `rg` patterns).
+- Validate and sanitize all user inputs at system boundaries — typed schemas (Zod, Pydantic, etc.) preferred.
+- Encode outputs contextually to prevent injection (HTML escape, SQL parameterization, shell escaping).
+- Apply least privilege: no `sudo`, no global installs, no over-permissioned file/network access.
+- Never concatenate user input into shell commands, SQL queries, or HTML — use APIs, parameterized queries, templates.
+- Log security-relevant events; never log secrets, tokens, request bodies, or personal data.
+- Use HTTPS/TLS for all external communication; validate certificates.
+- Pin dependency versions and audit with `npm audit`, `pip-audit`, `trivy`, or similar.
+- Add security headers (CSP, HSTS, X-Frame-Options) in web responses.
 
 ## Verification
 

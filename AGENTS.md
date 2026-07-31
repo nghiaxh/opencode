@@ -45,6 +45,7 @@
 
 Format: `<type>[optional scope]: <description>` — lowercase, imperative mood, no period.
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`, `chore`, `revert`
+- Merge commits must also follow this format (e.g. `feat: merge feature-x`) — never use the default "Merge branch ..." message
 Project-level AGENTS.md may override with project-specific conventions.
 
 ## Security

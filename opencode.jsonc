@@ -7,22 +7,9 @@
   "formatter": true,
   "instructions": ["AGENTS.md"],
   "skills": {
-    "paths": ["~/.config/opencode/skills"]
+    "paths": ["~/.config/opencode/skills"],
   },
   "watcher": {
-    "ignore": ["node_modules", ".git", "dist", "build", ".next", "*.min.*"]
+    "ignore": ["node_modules", ".git", "dist", "build", ".next", "*.min.*"],
   },
-  "compaction": {
-    "auto": true,
-    "tail_turns": 3
-  },
-  "tool_output": {
-    "max_lines": 3000
-  },
-  "permission": {
-    "bash": "allow",
-    "read": "allow",
-    "glob": "allow",
-    "grep": "allow"
-  }
 }

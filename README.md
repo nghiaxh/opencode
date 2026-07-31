@@ -1,6 +1,6 @@
-# opencode config
+# Opencode config
 
-Global opencode configuration — commands, skills, and settings.
+Global opencode configuration for commands, skills, and settings.
 
 ## Install
 
@@ -9,7 +9,7 @@ Global opencode configuration — commands, skills, and settings.
 ```powershell
 cd $HOME\.config\opencode
 git init
-git remote add origin https://github.com/YOUR_USERNAME/opencode.git
+git remote add origin https://github.com/nghiaxh/opencode.git
 git pull origin main
 ```
 
@@ -18,7 +18,7 @@ git pull origin main
 ```bash
 cd ~/.config/opencode
 git init
-git remote add origin https://github.com/YOUR_USERNAME/opencode.git
+git remote add origin https://github.com/nghiaxh/opencode.git
 git pull origin main
 ```
 
@@ -37,9 +37,9 @@ git push
 
 ```
 opencode.jsonc              # Main config
+AGENTS.md                   # Global agent instructions
 command/commit.md           # /commit command
-command/document.md         # /document command
-skills/document/SKILL.md    # Document processing skill
+skills/                     # Skills (SKILL.md per skill)
 ```
 
 ## Restart

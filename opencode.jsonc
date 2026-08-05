@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "shell": "powershell",
+  "shell": "pwsh",
   "share": "disabled",
   "autoupdate": "notify",
   "lsp": true,

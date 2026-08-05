@@ -2,10 +2,10 @@
 
 ## Windows Environment
 
-- DO NOT USE `2>&1` — use `$ErrorActionPreference` instead
-- Use semicolons `;` to chain commands, never `&&`
-- PowerShell only — never Bash/Zsh
+- Shell is pwsh (PowerShell 7) — never Bash/Zsh
+- Chain with semicolons `;`; `&&`/`||` work in pwsh 7 but avoid mixing styles
 - Use `$?` to check previous command success
+- Avoid `2>&1` on native commands — set `$PSNativeCommandUseErrorActionPreference = $true` instead (pwsh 7.2+)
 - Paths with spaces must be double-quoted
 - Backslashes `\` for native PowerShell paths
 

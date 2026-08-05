@@ -38,7 +38,10 @@ git push
 ```
 opencode.jsonc              # Main config
 AGENTS.md                   # Global agent instructions
-command/commit.md           # /commit command
+LAZY.md                     # Lazy dev mode instructions (loaded always-on)
+command/lazy-commit.md      # /lazy-commit command
+command/lazy-audit.md       # /lazy-audit command
+command/lazy-review.md      # /lazy-review command
 skills/                     # Skills (SKILL.md per skill)
 ```
 

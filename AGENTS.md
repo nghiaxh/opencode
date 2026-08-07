@@ -33,6 +33,7 @@
 - Check neighboring files for conventions before creating new ones
 - Config files: keep in project root or standard locations (`.config/`, etc.)
 - Delete dead code rather than commenting it out
+- `./projects` folder: if the user mentions it (planning a project or just asking a question), do not read any folders inside it
 
 ## Testing
 

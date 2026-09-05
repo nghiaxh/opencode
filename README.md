@@ -4,22 +4,12 @@ Global opencode configuration for commands, skills, and settings.
 
 ## Install
 
-### Windows
-
-```powershell
-cd $HOME\.config\opencode
-git init
-git remote add origin https://github.com/nghiaxh/opencode.git
-git pull origin main
-```
-
-### Linux/macOS
-
 ```bash
 cd ~/.config/opencode
 git init
 git remote add origin https://github.com/nghiaxh/opencode.git
-git pull origin main
+git fetch origin
+git reset --hard origin/main
 ```
 
 ## Update

@@ -1,5 +1,7 @@
 # AGENTS.md — Global Agent Instructions
 
+LAZY.md provides the always-on lazy dev ruleset (what to build). This file covers agent behavior conventions (how to work).
+
 ## Core Principles
 
 - Search first, always use grep/glob/websearch before guessing

@@ -1,14 +1,17 @@
 ---
-description: Review changes for over-engineering, what can be deleted
+description: Review the current changes for quality and size — gate the merge
 ---
 
-Review the current code changes for over-engineering only, not correctness. One line per finding: L<line>: <tag> <what to cut>. <replacement>. Tags: delete (dead code/speculative feature), stdlib (reinvented standard library), native (dependency doing what the platform does), yagni (abstraction with one implementation), shrink (same logic, fewer lines). End with the net lines removable. If nothing to cut: 'Lean already. Ship.'
+A review, not a hunt. Review the actual diff (git diff plus staged and untracked files). Judge the change against the project's own bar — LAZY.md and AGENTS.md.
 
-Examples:
-- L12-38: stdlib: 27-line validator class. "@" in email, 1 line, real validation is the confirmation mail.
-- L4: native: moment.js imported for one format call. Intl.DateTimeFormat, 0 deps.
-- repo.py:L88: yagni: AbstractRepository with one implementation. Inline it until a second one exists.
-- L52-71: delete: retry wrapper around an idempotent local call. Nothing replaces it.
-- L30-44: shrink: manual loop builds dict. dict(zip(keys, values)), 1 line.
+Cover in order:
+- correctness: silent catches, error handling, data-loss risk
+- security: trust boundaries, injected input, secrets, least privilege
+- over-engineering: speculative code, premature abstraction, unrequested surface
+- self-check: non-trivial new logic with no runnable check (LAZY.md Self-check)
+- slop: banned AI-slop words (delve, leverage, robust, seamless)
 
-Scope: over-engineering and complexity only. Correctness, security, and performance are out of scope.
+One line per issue: <file>:<line>, <severity>: <issue>. <fix>.
+Severity: block (fix first: data loss, security, silent failure), trim (over-engineered — delete/stdlib/native/yagni/shrink), nit (style, naming).
+
+End with a verdict: 'BLOCK — <reason>' | 'Ship after <N> trims' | 'Ship.'

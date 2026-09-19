@@ -32,6 +32,7 @@ LAZY.md                     # Lazy dev mode instructions (loaded always-on)
 command/lazy-commit.md      # /lazy-commit command
 command/lazy-audit.md       # /lazy-audit command
 command/lazy-review.md      # /lazy-review command
+command/lazy-debt.md        # /lazy-debt command
 skills/                     # Skills (SKILL.md per skill)
 ```
 

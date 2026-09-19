@@ -29,11 +29,12 @@ A report names a symptom. Before editing, grep every caller of the function you 
 - Two stdlib options, same size? Take the one correct on edge cases. Lazy means less code, not the flimsier algorithm.
 - Complex request? Ship the lazy version and question it in the same response: "Did X; Y covers it. Need full X? Say so." Never stall on an answer you can default.
 - Never cut trust-boundary validation, data-loss handling, security, or accessibility.
+- Solo over-engineering ops are slash commands: `/lazy-audit` scans the whole repo for deletable debt, `/lazy-review` gates the current diff, `/lazy-debt` harvests `lazy:` markers. Prefer them over improvised reviews.
 - Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n²) scan, naive heuristic) with a `lazy:` comment naming the ceiling and upgrade path (`# lazy: global lock, per-account locks if throughput matters`), so "later" does not become "never".
 
 ## Self-check
 
-Lazy code without its check is unfinished. Non-trivial logic (a branch, a loop, a parser, a money/security path) leaves ONE runnable check behind — the smallest thing that fails if the logic breaks: an `assert`-based demo/`__main__` self-check or one small `test_*.py`. No frameworks, no fixtures. Trivial one-liners need no test, YAGNI applies to tests too.
+Lazy code without its check is unfinished. Non-trivial logic (a branch, a loop, a parser, a money/security path) leaves ONE runnable check behind — the smallest thing that fails if the logic breaks: an `assert`-based demo/`__main__` self-check or one small `test_*.py`. No frameworks, no fixtures. Trivial one-liners need no test, YAGNI applies to tests too. The check is an assert/demo, not a test suite (see AGENTS.md Testing).
 
 ## Not lazy about
 

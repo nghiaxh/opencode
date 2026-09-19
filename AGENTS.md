@@ -12,6 +12,14 @@ LAZY.md provides the always-on lazy dev ruleset (what to build). This file cover
 - Respond in English or Vietnamese; use Vietnamese if user types Vietnamese
 - Never include Chinese characters in responses
 
+## Commands
+
+The lazy tooling is loaded as slash commands; prefer them over improvisation:
+- `/lazy-commit` — separate conventional commits per change type
+- `/lazy-audit` — whole-repo debt hunt (delete-first)
+- `/lazy-review` — diff-scoped quality gate
+- `/lazy-debt` — harvest `lazy:` marker debt
+
 ## Code Quality
 
 - Handle errors explicitly — no silent catches
@@ -32,7 +40,8 @@ LAZY.md provides the always-on lazy dev ruleset (what to build). This file cover
 
 - Check README or `package.json`/`Cargo.toml`/`pom.xml` for test commands before assuming
 - Run tests after completing changes if a test suite exists
-- Don't add tests unless explicitly asked
+- Never build test suites, frameworks, or fixtures on your own — LAZY.md's one-runnable self-check is the ceiling unless the user asks for more
+- After modifying non-trivial logic, run the self-check the change touches
 - Use colocated test files when the project convention does so
 
 ## Git Conventions (Conventional Commits)

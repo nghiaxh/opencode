@@ -9,7 +9,20 @@
   "session": {
     "sidebar": "auto",
     "scrollbar": false,
-    "thinking": "hide"
+    "thinking": "hide",
+    "grouping": "auto",
+    "image_preview": false,
+    "permissions": "prompt"
   },
-  "animations": true
+  "animations": true,
+  "attention": {
+    "notifications": false,
+    "sound": false
+  },
+  "terminal": {
+    "title": true
+  },
+  "debug": {
+    "devtools": false
+  }
 }

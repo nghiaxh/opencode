@@ -6,9 +6,7 @@ Every deliberate `lazy:` comment names a ceiling and an upgrade path. Collect th
 
 ## Scan
 
-Grep the repo for comment markers, skipping `node_modules`, `.git`, and build output:
-
-`grep -rnE '(#|//) ?lazy:' .`  (add other comment prefixes if your stack uses them)
+Search the repo for comment markers with the `grep` tool, not a shell `grep` (Windows has no `grep` binary). Pattern `(#|//|<!--)\s*lazy:` and skip `node_modules`, `.git`, and build output. If the stack uses other comment prefixes, add them to the pattern.
 
 The comment prefix keeps prose that merely mentions the convention out of the ledger.
 

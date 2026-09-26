@@ -76,7 +76,7 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 
 ### Skills
 
-Skills are plain markdown files. Load one with the `skill` tool using its **ID**, which is the directory name, not the frontmatter `name`. The two often differ: the directory `taste-skill` declares `name: design-taste-frontend`, so the ID is `taste-skill`. Never guess the ID from the display name.
+No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. The two often differ: the directory `react-best-practices` declares `name: vercel-react-best-practices`, so the ID is `vercel-react-best-practices`. Never guess the ID from the display name.
 
 | ID | Load when |
 |---|---|
@@ -84,17 +84,13 @@ Skills are plain markdown files. Load one with the `skill` tool using its **ID**
 | `java-springboot` | Spring Boot work: project structure, DI, config, REST, JPA, transactions, testing |
 | `sql-optimization` | Query tuning, indexing, execution-plan reading, pagination on any SQL database |
 | `typescript-advanced-types` | Writing a library, SDK, type-safe API client, or form validation schema. Deep type-level work only, not ordinary app code |
-| `taste-skill` | Landing page, portfolio, or redesign. The default design skill |
-| `minimalist-skill` | Editorial, document-style, warm monochrome, flat bento interfaces |
-| `redesign-skill` | Upgrading an existing UI to higher quality without breaking function |
-| `soft-skill` | Agency-grade motion choreography, high-end visual depth |
 
 Rules:
 
-- Load **exactly one** design skill, and only when the task has a visual component. The four design skills enforce conflicting aesthetics by design, so stacking them produces incoherent output.
-- `minimalist-skill`, `redesign-skill`, `soft-skill`, and `typescript-advanced-types` are hidden from the advertised list. Load them by ID on purpose, they never trigger on their own.
+- Load **at most one** skill per task. Skills that enforce conflicting styles, such as the design skills in `leonxlnx/taste-skill`, produce incoherent output when stacked.
+- `typescript-advanced-types` is hidden from the advertised list. Load it by ID on purpose, it never triggers on its own.
 - `vercel-react-best-practices` ships a `rules/` directory of 70 markdown files. Its `SKILL.md` is only the priority overview, so read the specific `rules/` file when a rule matters.
-- Installing more: `npx skills add <owner/repo> --skill <name> -g -a opencode --copy -y`. The CLI matches `--skill` against the frontmatter name, and it installs into `~/.agents/skills/`, not this repo. Use `--copy`, symlinks break git tracking.
+- Installing: `npx skills add <owner/repo> --skill <install name> -g -a opencode --copy -y`. The CLI matches `--skill` against the frontmatter `name`, not the source directory name. Use `--copy`, symlinks break git tracking.
 
 ## Core Principles
 

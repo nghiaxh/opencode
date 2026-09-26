@@ -105,3 +105,17 @@ one design skill per task.
 - Newly installed skills need a restart or a new session before they show up.
 - Removing every `AGENTS.md` tells the session its previous instructions no
   longer apply.
+
+## Check
+
+Invalid frontmatter is dropped silently: the command still loads, but loses its
+`description` and any `agent` or `model`. An unquoted `description` containing
+`: ` is the usual cause. This prints nothing when every `lazy-*` command is
+intact, and names the offender when one is not. Allow about ten seconds after a
+save before trusting it, the file watcher is not instant.
+
+```powershell
+opencode api get /api/command | ConvertFrom-Json | Select-Object -ExpandProperty data |
+  Where-Object { $_.name -like 'lazy-*' -and -not $_.description } |
+  ForEach-Object { "FAIL $($_.name): frontmatter did not parse" }
+```

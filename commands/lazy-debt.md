@@ -1,14 +1,16 @@
 ---
-description: Harvest lazy: shortcut comments into a debt ledger
+description: "Harvest lazy: shortcut comments into a debt ledger"
 ---
 
-Every deliberate `lazy:` comment names a ceiling and an upgrade path. Collect them into one ledger so a deferral can't quietly become permanent.
+Collect deliberate `lazy:` comments into one ledger so a deferral can't quietly become permanent.
 
 ## Scan
 
-Search the repo for comment markers with the `grep` tool, not a shell `grep` (Windows has no `grep` binary). Pattern `(#|//|<!--)\s*lazy:` and skip `node_modules`, `.git`, and build output. If the stack uses other comment prefixes, add them to the pattern.
+`grep` tool, pattern `(#|//|<!--)\s*lazy:`. gitignore already drops `node_modules` and `.git`; if the repo commits build output, narrow with `include` to source extensions. Add the stack's other comment prefixes to the pattern.
 
-The comment prefix keeps prose that merely mentions the convention out of the ledger.
+Two filters, both required:
+- Markdown: drop a match inside a code fence or inline backticks. That is the convention being documented, not debt.
+- The tool reports a match count and caps at 100. If the count exceeds the lines you can see, the ledger is partial: say so and name the shortfall. Never report a truncated scan as complete.
 
 ## Output
 
@@ -16,12 +18,8 @@ One row per marker, grouped by file:
 
 `<file>:<line>, <what was simplified>. ceiling: <the limit named>. upgrade: <the trigger to revisit>.`
 
-The convention is `lazy: <ceiling>, <upgrade path>`, so pull the ceiling and the trigger straight from the comment. Want an owner per row too? add `git blame -L<line>,<line>`.
-
-Flag the rot risk: any `lazy:` comment that names no upgrade path or trigger gets a `no-trigger` tag, those are the ones that silently rot.
+Split the comment on the first comma after `lazy:`. No comma, or nothing after it, is `no-trigger`: the marker that silently rots. Want an owner per row too? add `git blame -L<line>,<line>`.
 
 End with `<N> markers, <M> with no trigger.` Nothing found: 'No lazy: debt. Clean ledger.'
 
-## Boundaries
-
-Reads and reports only, changes nothing. To persist it, ask and it writes the ledger to a file (e.g. `LAZY-DEBT.md`).
+Boundaries: reads and reports only, changes nothing. To persist it, ask and it writes the ledger to a file (e.g. `LAZY-DEBT.md`).

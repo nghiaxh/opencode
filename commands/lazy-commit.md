@@ -1,5 +1,5 @@
 ---
-description: Analyze all project changes and create separate conventional commits for each change type — no ceremony.
+description: Analyze all project changes and create separate conventional commits for each change type, no ceremony.
 agent: build
 ---
 
@@ -12,10 +12,10 @@ Run `git rev-parse --is-inside-work-tree`. If not a git repo, tell the user and 
 ## Step 2: Collect all changes
 
 Run these commands to get the full picture:
-- `git status --porcelain` — list all changed files
-- `git diff` — unstaged changes
-- `git diff --cached` — staged changes
-- `git ls-files --others --exclude-standard` — untracked files
+- `git status --porcelain`, list all changed files
+- `git diff`, unstaged changes
+- `git diff --cached`, staged changes
+- `git ls-files --others --exclude-standard`, untracked files
 
 If there are no changes at all, tell the user "Nothing to commit" and stop.
 
@@ -28,8 +28,8 @@ For each changed file, classify it into one of these conventional commit types b
 | `feat` | New functionality, new files that add features |
 | `fix` | Bug fixes, error handling corrections |
 | `docs` | Only documentation changes (README, comments, docstrings) |
-| `style` | Formatting, whitespace, semicolons — no logic change |
-| `refactor` | Code restructuring, renaming, extracting — no feature/fix |
+| `style` | Formatting, whitespace, semicolons, no logic change |
+| `refactor` | Code restructuring, renaming, extracting, no feature/fix |
 | `perf` | Performance improvements (caching, algorithm changes) |
 | `test` | Adding or updating test files |
 | `ci` | CI/CD pipeline config (.github/workflows, etc.) |

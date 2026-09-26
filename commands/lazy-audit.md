@@ -10,4 +10,4 @@ Hunt: deps the stdlib or platform already ships, single-implementation interface
 
 End with: <N> cuts, ~<X> lines, <M> dependencies removable. If nothing to cut: 'Lean already. Ship.'
 
-Boundaries: inventory and count only — never delete; the user triggers cuts. Correctness is out of scope (that is /lazy-review's job).
+Boundaries: inventory and count only, never delete; the user triggers cuts. Correctness is out of scope (that is /lazy-review's job).

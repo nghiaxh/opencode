@@ -66,12 +66,12 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 |---|---|
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
-| `/lazy-simplify` | Making the cuts a hunt found, but only the ones you approve |
+| `/lazy-simplify` | Refactoring the code that stays: names, flow, shape, boundaries, scale |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
 | `/lazy-review` | Gating the current diff (staged plus unstaged plus untracked) before merge |
 | `/lazy-debt` | Harvesting `lazy:` marker comments into a debt ledger |
 
-`/lazy-audit` inventories, `/lazy-simplify` applies what you approve, `/lazy-test` proves it, `/lazy-review` judges the diff, `/lazy-debt` harvests markers. They do not overlap.
+`/lazy-audit` cuts code, then `/lazy-simplify` restructures what survives, `/lazy-test` proves it, `/lazy-review` judges the diff, `/lazy-debt` harvests markers. They do not overlap.
 
 ### Skills
 

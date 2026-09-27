@@ -36,17 +36,12 @@ A report names a symptom. Before editing, grep every caller of the function you 
 - Solo over-engineering ops are slash commands. Prefer them over improvised reviews.
 - Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n^2) scan, naive heuristic) with a `lazy:` comment naming the ceiling and upgrade path (`# lazy: global lock, per-account locks if throughput matters`), so "later" does not become "never".
 
-### Self-check
-
-Lazy code without its check is unfinished. Non-trivial logic (a branch, a loop, a parser, a money/security path) leaves ONE runnable check behind: the smallest thing that fails if the logic breaks. An `assert`-based demo or `__main__` guard in the nearest runnable file, or one small `test_*.py`. No frameworks, no fixtures. Trivial one-liners need no test, YAGNI applies to tests too. The check is an assert or demo, not a test suite (see Testing below).
-
 ### Not lazy about
 
 - **Understanding the problem.** The ladder shortens the solution, never the reading. Trace the whole thing first: every file the change touches, the actual flow, before picking a rung. Laziness that skips comprehension ships a confident wrong fix.
 - Input validation at trust boundaries.
 - Error handling that prevents data loss.
 - Security and accessibility basics.
-- Hardware calibration. The platform is never the spec ideal: a real clock drifts, a real sensor reads off, a PCA9685 runs a few percent fast. Leave the calibration knob, because hardware needs tuning a minimal model can't see.
 - Anything explicitly requested. Build it, no re-arguing.
 
 ### Output
@@ -76,21 +71,7 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 
 ### Skills
 
-No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. The two often differ: the directory `react-best-practices` declares `name: vercel-react-best-practices`, so the ID is `vercel-react-best-practices`. Never guess the ID from the display name.
-
-| ID | Load when |
-|---|---|
-| `vercel-react-best-practices` | Writing, reviewing, or refactoring React and Next.js code for performance |
-| `java-springboot` | Spring Boot work: project structure, DI, config, REST, JPA, transactions, testing |
-| `sql-optimization` | Query tuning, indexing, execution-plan reading, pagination on any SQL database |
-| `typescript-advanced-types` | Writing a library, SDK, type-safe API client, or form validation schema. Deep type-level work only, not ordinary app code |
-
-Rules:
-
-- Load **at most one** skill per task. Skills that enforce conflicting styles, such as the design skills in `leonxlnx/taste-skill`, produce incoherent output when stacked.
-- `typescript-advanced-types` is hidden from the advertised list. Load it by ID on purpose, it never triggers on its own.
-- `vercel-react-best-practices` ships a `rules/` directory of 70 markdown files. Its `SKILL.md` is only the priority overview, so read the specific `rules/` file when a rule matters.
-- Installing: `npx skills add <owner/repo> --skill <install name> -g -a opencode --copy -y`. The CLI matches `--skill` against the frontmatter `name`, not the source directory name. Use `--copy`, symlinks break git tracking.
+No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
 
 ## Core Principles
 
@@ -114,9 +95,7 @@ Rules:
 
 - Prefer editing existing files, never create new files unless required
 - Check neighboring files for conventions before creating new ones
-- Config files: keep in project root or standard locations (`.config/`, etc.)
 - Delete dead code rather than commenting it out
-- `./projects` folder: if the user mentions it (planning a project or just asking a question), do not read any folders inside it
 
 ## Testing
 

@@ -1,6 +1,6 @@
 # Opencode config
 
-Global opencode configuration for commands and settings.
+Global opencode configuration for commands and settings, see the [official docs](https://opencode.ai/v2/docs) for more detail.
 
 ## Install
 

@@ -73,11 +73,14 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 
 No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
 
+Frontend and accessibility work loads the installed skills rather than restating their rules here. If the matching skill is not installed, say so instead of guessing.
+
 ## Core Principles
 
 - Search first, always use grep/glob/websearch before guessing
 - Follow existing code conventions in the target repo
-- No AI slop patterns (no "delve", "leverage", "robust", "seamless")
+- No AI slop patterns: no "delve", "leverage", "robust", "seamless", "unlock", "elevate", "streamline", "tapestry", "holistic", "meticulous", "it's important to note". Applies to prose, comments, commit messages, and test names, not just chat
+- No em dashes in responses, docs, or code comments; use a comma, colon, semicolon, or parentheses instead
 - No unnecessary comments, code should be self-documenting
 - No generic variable names (temp, data, result) without context
 - Respond in English or Vietnamese; use Vietnamese if user types Vietnamese
@@ -105,14 +108,6 @@ No skills live in this repo. Every skill is installed with `npx skills add` into
 - After modifying non-trivial logic, run the self-check the change touches
 - Use colocated test files when the project convention does so
 
-## Web Development
-
-- Validate and sanitize at the boundary, then trust types internally. Parse once at the edge, keep the core total
-- Escape on output, every time. Prefer parameterized queries and templating over string concatenation
-- Accessibility is not optional: semantic HTML first, keyboard reachable, visible focus, labels tied to inputs, WCAG AA contrast
-- Animate only `transform` and `opacity`, and honor `prefers-reduced-motion`
-- Load a skill above instead of restating its rules. Do not hand-roll a framework, a router, or a build tool that an installed dependency already provides
-
 ## Git Conventions (Conventional Commits)
 
 Format: `<type>[optional scope]: <description>`, lowercase, imperative mood, no period.
@@ -124,17 +119,15 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`
 
 ## Security
 
-- Never commit secrets, API keys, tokens, or credentials. Use environment variables or vaults (e.g., `dotenv`, `op`)
-- Scan code for hardcoded secrets before every commit (e.g., `gitleaks`, `trufflehog`, or `rg` patterns)
-- Validate and sanitize all user inputs at system boundaries. Typed schemas preferred (Zod, Valibot, Pydantic, Jakarta Validation)
-- Encode outputs contextually to prevent injection (HTML escape, SQL parameterization, shell escaping)
-- Apply least privilege: no `sudo`, no global installs, no over-permissioned file/network access
-- Never concatenate user input into shell commands, SQL queries, or HTML. Use APIs, parameterized queries, templates
+- Never commit secrets, API keys, tokens, or credentials. Use environment variables or vaults (`dotenv`, `op`), and scan for hardcoded secrets before every commit (`gitleaks`, `trufflehog`, or `rg` patterns)
+- Validate and sanitize at the boundary, then trust types internally: parse once at the edge, keep the core total. Typed schemas preferred (Zod, Valibot, Pydantic, Jakarta Validation)
+- Encode output contextually, every time: HTML escape, SQL parameterization, shell escaping. Never concatenate user input into shell commands, SQL queries, or HTML; use APIs, parameterized queries, templates
+- Apply least privilege: no `sudo`, no global installs, no over-permissioned file or network access
 - Log security-relevant events; never log secrets, tokens, request bodies, or personal data
-- Use HTTPS/TLS for all external communication; validate certificates
-- Pin dependency versions and audit with `npm audit`, `pip-audit`, `trivy`, `osv-scanner`, or similar
+- Use HTTPS/TLS for all external communication, validate certificates
+- Pin dependency versions and audit (`npm audit`, `pip-audit`, `trivy`, `osv-scanner`)
+- Review third-party skills and dependencies before installing: prefer audited sources, read what the package actually contains
 - Add security headers (CSP, HSTS, X-Frame-Options) in web responses
-- Review third-party skills and dependencies before installing. Prefer audited sources, and check what a skill actually contains
 
 ## Verification
 

@@ -50,6 +50,8 @@ Code first. Then at most three short lines: what was skipped, when to add it. No
 
 Pattern: `[code]` then `skipped: [X], add when [Y].`
 
+Never report a check as passing unless it ran. Name the check that is missing instead.
+
 ### Boundaries
 
 Lazy governs what gets built, not how you talk. "normal mode": revert. Build only what the task needs. The code ends up small because it is necessary, not golfed.
@@ -73,7 +75,7 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 
 No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
 
-Frontend and accessibility work loads the installed skills rather than restating their rules here. If the matching skill is not installed, say so instead of guessing.
+Frontend and accessibility rules live in the installed skills, not here. Load the matching skill; if it is not installed, say so.
 
 ## Core Principles
 
@@ -123,6 +125,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`
 - Validate and sanitize at the boundary, then trust types internally: parse once at the edge, keep the core total. Typed schemas preferred (Zod, Valibot, Pydantic, Jakarta Validation)
 - Encode output contextually, every time: HTML escape, SQL parameterization, shell escaping. Never concatenate user input into shell commands, SQL queries, or HTML; use APIs, parameterized queries, templates
 - Apply least privilege: no `sudo`, no global installs, no over-permissioned file or network access
+- Never run a destructive command (`rm -rf`, `git reset --hard`, `git clean -fd`, recursive delete, force push) without showing it and getting a yes first
 - Log security-relevant events; never log secrets, tokens, request bodies, or personal data
 - Use HTTPS/TLS for all external communication, validate certificates
 - Pin dependency versions and audit (`npm audit`, `pip-audit`, `trivy`, `osv-scanner`)
@@ -133,10 +136,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`
 
 Before completing any task:
 
-- Code follows project conventions (check neighboring files first)
-- No AI slop patterns in output
 - No secrets, keys, or tokens exposed
 - Git commit follows conventional format (if committing)
 - Lint/typecheck passes (if available: `npm run lint`, `npm run typecheck`, `mvn verify`, `./gradlew check`)
 - Tests pass (if test suite exists)
-- No unnecessary comments added

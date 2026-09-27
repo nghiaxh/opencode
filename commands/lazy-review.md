@@ -8,8 +8,8 @@ Cover in order:
 - correctness: silent catches, error handling, data-loss risk
 - security: trust boundaries, injected input, secrets, least privilege
 - over-engineering: speculative code, premature abstraction, unrequested surface
-- self-check: non-trivial new logic with no runnable check (AGENTS.md Self-check)
-- slop: banned AI-slop words (delve, leverage, robust, seamless)
+- self-check: non-trivial new logic with no runnable check (AGENTS.md Testing)
+- slop: banned AI-slop words, see AGENTS.md Core Principles
 
 One line per issue: <file>:<line>, <severity>: <issue>. <fix>.
 Severity: block (fix first: data loss, security, silent failure), trim (over-engineered: delete/stdlib/native/yagni/shrink), nit (style, naming).

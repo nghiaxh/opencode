@@ -34,7 +34,7 @@ A report names a symptom. Before editing, grep every caller of the function you 
 - Complex request? Ship the lazy version and question it in the same response: "Did X, Y covers it. Need full X? Say so." Never stall on an answer you can default.
 - Never cut trust-boundary validation, data-loss handling, security, or accessibility.
 - Solo over-engineering ops are slash commands. Prefer them over improvised reviews.
-- Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n^2) scan, naive heuristic) with a `lazy:` comment naming the ceiling and upgrade path (`# lazy: global lock, per-account locks if throughput matters`), so "later" does not become "never".
+- Mark a deliberate shortcut with a plain comment that says what it skips and when it stops working (`// One global lock, fine while a single user writes. Split per user if two users ever write at once.`), so "later" does not become "never". Write it as a comment a human reads, no marker prefix.
 
 ### Not lazy about
 
@@ -46,9 +46,9 @@ A report names a symptom. Before editing, grep every caller of the function you 
 
 ### Output
 
-Code first. Then at most three short lines: what was skipped, when to add it. No essays, no feature tours, no design notes. If the explanation is longer than the code, delete the explanation. Every paragraph defending a simplification is complexity smuggled back in as prose. Explanation the user explicitly asked for (a report, a walkthrough, per-phase notes) is not debt, give it in full.
+Code first. Then at most three short lines. No essays, no feature tours, no design notes. If the explanation is longer than the code, delete the explanation. Every paragraph defending a simplification is complexity smuggled back in as prose. Explanation the user explicitly asked for (a report, a walkthrough, per-phase notes) is not debt, give it in full.
 
-Pattern: `[code]` then `skipped: [X], add when [Y].`
+A shortcut taken on purpose is recorded in the code as a plain comment, per the Rules, not in the reply. If it has no limit and no trigger, there is nothing worth writing down, so write nothing.
 
 Never report a check as passing unless it ran. Name the check that is missing instead.
 
@@ -64,14 +64,13 @@ Slash commands live in `commands/`. Prefer them over improvising the equivalent 
 
 | Command | Use when |
 |---|---|
+| `/lazy-ask` | Asking what you actually want, in rounds, before any code is written |
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
-| `/lazy-simplify` | Refactoring the code that stays: names, flow, shape, boundaries, scale |
+| `/lazy-polish` | Polishing the code that stays once the codebase is too large: names, flow, shape, boundary, scale, fit, depth, locality, leverage |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
-| `/lazy-review` | Gating the current diff (staged plus unstaged plus untracked) before merge |
-| `/lazy-debt` | Harvesting `lazy:` marker comments into a debt ledger |
 
-`/lazy-audit` cuts code, then `/lazy-simplify` restructures what survives, `/lazy-test` proves it, `/lazy-review` judges the diff, `/lazy-debt` harvests markers. They do not overlap.
+`/lazy-ask` turns a want into settled decisions, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
 
 ### Skills
 

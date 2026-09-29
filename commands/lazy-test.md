@@ -30,4 +30,4 @@ One line per weak proof: `<file>:<line>, <the weak proof>. <the assertion that w
 
 End `<command> <pass|fail>, <N> run, <M> failed, <K> weak.` Then `Proven.` or `Not proven: <the missing check or the untested path>.`
 
-Boundaries: reads and runs, changes nothing, and writes no test code. To close a gap, ask, and the write happens as ordinary work in the session. Builds no suite or framework (AGENTS.md caps it at one runnable self-check), judges no design (that is /lazy-review).
+Boundaries: reads and runs, changes nothing, and writes no test code. To close a gap, ask, and the write happens as ordinary work in the session. Builds no suite or framework (AGENTS.md caps it at one runnable self-check), judges no design.

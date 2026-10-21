@@ -1,5 +1,7 @@
 ---
 description: Audit the whole repo for over-engineering, what can be deleted
+agent: general
+subagent: true
 ---
 
 Farming debt, not judging code. Scan the whole tree, not a diff. One line per finding, ranked biggest cut first: <tag> <what to cut>. <replacement>. [path].
@@ -10,4 +12,4 @@ Hunt: deps the stdlib or platform already ships, single-implementation interface
 
 End with: <N> cuts, ~<X> lines, <M> dependencies removable. If nothing to cut: 'Lean already. Ship.'
 
-Boundaries: inventory and count only, never delete; the user triggers cuts. Correctness is out of scope. What stays is /lazy-polish's job.
+Boundaries: inventory and count only, never delete; the user triggers cuts. Correctness is out of scope. What stays is /lazy-polish's job. Runs as a background subagent: the parent session stays usable while the scan runs, and the findings come back to it.

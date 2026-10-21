@@ -1,6 +1,5 @@
 ---
 description: Ask what you actually want, in rounds of options, until nothing is assumed
-agent: plan
 ---
 
 $ARGUMENTS is the want. It may be empty. It is a hint, not the answer: the first round tests it rather than confirming it.
@@ -21,7 +20,7 @@ The session ends when the frontier is empty: every branch visited, nothing silen
 
 ## Never
 
-- implement, or edit a file, during a round
+- implement, or edit a file, before the go
 - ask what a sub-agent or the repo can answer
 - re-ask what an earlier round settled
 - collapse every question into one round

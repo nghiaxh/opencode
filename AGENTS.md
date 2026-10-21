@@ -56,27 +56,42 @@ Never report a check as passing unless it ran. Name the check that is missing in
 
 Lazy governs what gets built, not how you talk. "normal mode": revert. Build only what the task needs. The code ends up small because it is necessary, not golfed.
 
+## Context first
+
+Your memory of an API is older than the repo. Every time you write a call to a library, framework, CLI, HTTP API, or platform SDK, fetch its current docs first. No exception for "I know this API".
+
+Before the first line of code against a third-party API:
+
+1. **Pin the version.** The lockfile wins over the manifest: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, `poetry.lock`, `uv.lock`, `Cargo.lock`, `go.mod`, `pom.xml`, `composer.lock`, `Gemfile.lock`. With no lockfile, take the newest version the manifest range allows.
+2. **Read the installed code.** It cannot drift from the repo: `node_modules/<pkg>/**/*.d.ts`, `site-packages/<pkg>/**/*.pyi`, `~/.m2/repository`, `$(go env GOMODCACHE)`, `~/.cargo/registry/src`.
+3. **Otherwise fetch the vendor docs.** `websearch` for `<library> <version> official docs <topic>`, then `webfetch` the result. Take the versioned page when the site has one. `npx ctx7 library <name> "<query>"` then `npx ctx7 docs <id> "<query>"` reads the same corpus as context7, no MCP server needed.
+4. **Every source failed.** Name the ones that failed, build the call from the repo's existing usage of that API, and mark it `docs unverified`. Never invent an API, never guess a signature.
+
+State the version and the source you read when it changes the answer: a deprecation, a renamed option, a new required argument, a changed default. A wrong signature is a bug, not a detail.
+
+Skip only when the call is a stdlib or platform API already used in this repo, or when the change is not code.
+
 ## Routing
 
 ### Commands
 
-Slash commands live in `commands/`. Prefer them over improvising the equivalent by hand.
+Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/commands/` per project. Prefer them over improvising the equivalent by hand.
 
 | Command | Use when |
 |---|---|
 | `/lazy-ask` | Asking what you actually want, in rounds, before any code is written |
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
-| `/lazy-polish` | Polishing the code that stays once the codebase is too large: names, flow, shape, boundary, scale, fit, depth, locality, leverage |
+| `/lazy-polish` | Polishing the code that stays once the codebase is too large: names, flow, shape, boundary, scale, fit, depth, locality, reuse |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
 
 `/lazy-ask` turns a want into settled decisions, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
 
 ### Skills
 
-No skills live in this repo. Every skill is installed with `npx skills add` into `~/.agents/skills/`, which OpenCode discovers automatically. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
+No skills live in this repo. OpenCode discovers skills from `~/.config/opencode/skills` globally and `.opencode/skills` per project; `~/.agents/skills` and `~/.claude/skills` are compatibility sources with lower precedence. `npx skills add <repo> -s <name> -g -a opencode` installs into `~/.config/opencode/skills`. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
 
-Frontend and accessibility rules live in the installed skills, not here. Load the matching skill; if it is not installed, say so.
+Frontend and accessibility rules live in the installed skills, not here. Load the matching skill; if it is not installed, say so and continue without it, never invent its content.
 
 ## Core Principles
 

@@ -14,7 +14,7 @@ Default: the whole repo, skipping `node_modules`, `.git` and committed build out
 $ARGUMENTS, when given, narrows it:
 
 - a path: that file or directory
-- a class (name, flow, shape, boundary, scale, fit, depth, locality, leverage): only that kind of move
+- a class (name, flow, shape, boundary, scale, fit, depth, locality, reuse): only that kind of move
 - `apply <n>`: make the move list's nth move, from the list this command already printed
 - anything else: read it as the instruction, keep the default
 
@@ -30,7 +30,7 @@ Rank by blast radius first: how many places import it, how deep the nesting, how
 - fit: an idiom, placement, or convention that fights the file around it, or that the platform already answers better
 - depth: a shallow module, its interface as complex as its implementation, no more behavior than a caller gets for the surface it must learn. Apply the deletion test to every candidate: would deleting it concentrate complexity, or just move it? Concentrates is the signal, so recommend it
 - locality: a change that needs edits across files with nothing to do with each other, a pure function extracted only for testability while the real bug lives in the caller, one concept that must be bounced between files to understand
-- leverage: a place the code answers the same question N times instead of once, or a concept the rest of the codebase keeps re-deriving from scratch
+- reuse: a place the code answers the same question N times instead of once, or a concept the rest of the codebase keeps re-deriving from scratch
 
 A comment recording a shortcut is a decision with a ceiling, not a move: leave it in place.
 

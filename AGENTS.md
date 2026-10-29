@@ -1,165 +1,109 @@
 # AGENTS.md - Global Agent Instructions
 
-Always-on rules for every session. OpenCode V2 loads only this file automatically, so every cross-task rule belongs here.
+Global baseline for every session. Project and nearer `AGENTS.md` files add local rules; explicit user instructions win conflicts. Keep this file universal: project facts, commands, and stack rules belong in the project's own `AGENTS.md`.
 
-Precedence: project-level and nearer `AGENTS.md` files override this one; explicit user prompts override all rules. Keep this file for universal rules; link to details instead of duplicating them.
+OpenCode V2 auto-loads `AGENTS.md`; it does not read `CLAUDE.md`. Nested files load when the agent reads that area.
 
-## Lazy Dev Mode
+## Hard boundaries
 
-Lazy about what gets built, never about reading the code first.
+- Never read, print, or parse `.env`, `.env.*`, or files containing keys, tokens, credentials, or private configuration. Reference variable names only; ask for values or run commands that consume them without printing contents. Never commit secrets, keys, or tokens.
+- Never run a destructive command (`rm -rf`, `git reset --hard`, `git clean -fd`, force push) without showing it and getting a yes.
+- Never hand-edit generated, vendored, or lock files. Run the generator and include the lockfile update.
+- Validate at trust boundaries; escape output for its context. Never cut validation, data-loss handling, security, or accessibility for a smaller diff. No `sudo`, global installs, or broad permissions.
+- For web or service code, use TLS, security headers, safe logs, and a dependency audit.
 
-### The ladder
+## Default loop
 
-Before writing any code, stop at the first rung that holds:
+1. Read the code the change touches. Search the repo and trace the callers before editing.
+2. Fix the root cause in the shared path, not only the reported path.
+3. Make the smallest complete change. No drive-by refactors, no scaffolding.
+4. Run the narrowest relevant check. Report what ran and what did not.
 
-1. Does this need to exist? If no, skip it (YAGNI).
-2. Already in this codebase? Reuse it, don't rewrite.
-3. Stdlib does it? Use it.
-4. Native platform feature? Use it.
-5. Installed dependency? Use it.
+Ask one question only when two readings change scope or public behavior. Otherwise act.
+
+## Simplicity ladder
+
+Stop at the first rung that holds:
+
+1. Does this need to exist? If no, skip it.
+2. Already in this codebase? Reuse it.
+3. Standard library does it? Use it.
+4. Platform feature does it? Use it.
+5. Installed dependency does it? Use it.
 6. One line? One line.
 7. Only then: the minimum that works.
 
-The ladder runs after you understand the problem, not instead of it: read the code the change touches and trace the real flow before picking a rung.
+The ladder shortens the solution, not the reading. The smallest change in the wrong place is a second bug; when two options cost the same, take the one correct on edge cases.
 
-### Bug fix is root cause, not symptom
+## Change discipline
 
-A report names a symptom. Before editing, grep every caller of the function you touch. The lazy fix IS the root-cause fix: one guard in the shared function is a smaller diff than a guard per caller, and patching only the path the ticket names leaves sibling callers still broken.
+- No unrequested abstraction: no interface with one implementation, no factory for one product, no config for a value that never changes.
+- No compatibility shims, `_v2` files, or deprecated aliases unless asked.
+- Prefer editing an existing file over creating a new one; check neighboring files for conventions.
+- Delete dead code; do not comment it out.
+- Handle errors explicitly; no silent catches.
+- Mark a deliberate shortcut with a plain comment that states what it skips and when it stops working.
+- An explicit request wins. Ship the full requested scope; if it is too large, name the deferral and ask, never silently substitute a partial version.
+- Follow existing repo conventions. If they conflict with this file, follow the repo and report the conflict.
 
-### Rules
+## Context and APIs
 
-- No unrequested abstractions: no interface with one implementation, no factory for one product, no config for a value that never changes.
-- No boilerplate, no scaffolding "for later". Later can scaffold for itself.
-- Deletion over addition. Boring over clever, because clever is what someone decodes at 3am.
-- Fewest files possible. Shortest working diff wins, but only once you understand the problem. The smallest change in the wrong place isn't lazy, it's a second bug.
-- Two stdlib options, same size? Take the one correct on edge cases. Lazy means less code, not the flimsier algorithm.
-- Complex request? Ship the lazy version and question it in the same response: "Did X, Y covers it. Need full X? Say so." Never stall on an answer you can default.
-- Never cut trust-boundary validation, data-loss handling, security, or accessibility.
-- Prefer slash commands over improvised reviews for over-engineering work.
-- Mark a deliberate shortcut with a plain comment that says what it skips and when it stops working (`// One global lock, fine while a single user writes. Split per user if two users ever write at once.`), so "later" does not become "never". Write it as a comment a human reads, no marker prefix.
+1. Pin the version from the lockfile, or the manifest range if none.
+2. Read the installed types or source.
+3. Otherwise read the vendor docs for that version.
+4. If every source fails, name what failed, follow existing repo usage, and mark `docs unverified`.
 
-### Not lazy about
+State the version and source when they change the answer. Skip this for standard-library or platform APIs already used in the repo.
 
-- **Understanding the problem.** The ladder shortens the solution, never the reading. Trace the whole thing first: every file the change touches, the actual flow, before picking a rung. Laziness that skips comprehension ships a confident wrong fix.
-- Input validation at trust boundaries.
-- Error handling that prevents data loss.
-- Security and accessibility basics.
-- Anything explicitly requested. Build it, no re-arguing.
+## Verification
 
-### Output
+- Find the check in README, the manifest, Makefile, justfile, or CI. Run the narrowest command that covers the change.
+- Never invent a check. Never report a pass unless it ran.
+- Do not build a test framework, fixtures, or a suite unless asked; use the project's existing runner.
+- Report the command, the result, and the paths it did not cover.
+- Done means: the affected check ran, the diff holds no secrets, and there are no unrelated changes.
 
-Code first. Then at most three short lines. No essays, no feature tours, no design notes. If the explanation is longer than the code, delete the explanation. Every paragraph defending a simplification is complexity smuggled back in as prose. Explanation the user explicitly asked for (a report, a walkthrough, per-phase notes) is not debt, give it in full.
+In `~/.config/opencode`, there is no test, lint, or typecheck command; use `git diff` and a secret-pattern scan.
 
-A shortcut taken on purpose is recorded in the code as a plain comment, per the Rules, not in the reply. If it has no limit and no trigger, there is nothing worth writing down, so write nothing.
+## Git
 
-Never report a check as passing unless it ran. Name the check that is missing instead.
+Format: `<type>[optional scope]: <description>`, lowercase, imperative, no period.
 
-### Boundaries
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`, `chore`, `revert`
 
-Lazy governs what gets built, not how you respond. In "normal mode", revert to standard behavior and build only what the task needs. The code ends up small because it is necessary, not golfed.
+One commit per change type. Merge commits follow the same format.
 
-If unsure, ask one short question or propose a short plan; do not make large speculative changes. If instructions conflict with repo reality, follow repo conventions and report the conflict.
-
-## Context first
-
-Your memory of an API is older than the repo. Every time you write a call to a library, framework, CLI, HTTP API, or platform SDK, fetch its current docs first. No exception for "I know this API".
-
-Before the first line of code against a third-party API:
-
-1. **Pin the version.** The lockfile wins over the manifest: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, `poetry.lock`, `uv.lock`, `Cargo.lock`, `go.mod`, `pom.xml`, `composer.lock`, `Gemfile.lock`. With no lockfile, take the newest version the manifest range allows.
-2. **Read the installed code.** It cannot drift from the repo: `node_modules/<pkg>/**/*.d.ts`, `site-packages/<pkg>/**/*.pyi`, `~/.m2/repository`, `$(go env GOMODCACHE)`, `~/.cargo/registry/src`.
-3. **Otherwise fetch the vendor docs.** `websearch` for `<library> <version> official docs <topic>`, then `webfetch` the result. Take the versioned page when the site has one. `npx ctx7 library <name> "<query>"` then `npx ctx7 docs <id> "<query>"` reads the same corpus as context7, no MCP server needed.
-4. **If every source fails:** Name the ones that failed, build the call from the repo's existing usage of that API, and mark it `docs unverified`. Never invent an API, never guess a signature.
-
-State the version and the source you read when it changes the answer: a deprecation, a renamed option, a new required argument, a changed default. A wrong signature is a bug, not a detail.
-
-Skip only when the call is a stdlib or platform API already used in this repo, or when the change is not code.
+Do not commit, push, or rewrite history unless asked.
 
 ## Routing
 
 ### Commands
 
-Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/commands/` per project. Prefer them over improvising the equivalent by hand.
+Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/commands/` per project. Use the matching command; do not reimplement its steps in the session.
 
 | Command | Use when |
 |---|---|
 | `/lazy-ask` | Asking what you actually want, in rounds, before any code is written |
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
-| `/lazy-polish` | Polishing the code that stays once the codebase is too large: names, flow, shape, boundary, scale, fit, depth, locality, reuse |
+| `/lazy-polish` | Polishing the code that stays: names, flow, shape, boundary, scale, fit, depth, locality, reuse |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
 
 `/lazy-ask` turns a want into settled decisions, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
 
 ### Skills
 
-This repository ships no skills. OpenCode discovers skills from `~/.config/opencode/skills` globally and `.opencode/skills` per project; `~/.agents/skills` and `~/.claude/skills` are compatibility sources with lower precedence. `npx skills add <repo> -s <name> -g -a opencode` installs into `~/.config/opencode/skills`. Load one with the `skill` tool using its **ID**, which is the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
+OpenCode discovers skills from `~/.config/opencode/skills` globally and `.opencode/skills` per project; `~/.agents/skills` and `~/.claude/skills` are compatibility sources with lower precedence. `npx skills add <repo> -s <name> -g -a opencode` installs into `~/.config/opencode/skills`. Load one with the `skill` tool using its **ID**, the installed directory name, not the frontmatter `name`. Never guess the ID from the display name.
 
-Frontend and accessibility rules live in the installed skills, not here. Load the matching skill; if it is not installed, say so and continue without it, never invent its content.
+Review third-party skills and dependencies before installing; prefer audited sources.
 
-## Core Principles
+Frontend and accessibility rules live in the installed skills, not here. Load the matching skill; if missing, say so and continue without inventing its content.
 
-- Search first: use grep, glob, or websearch before guessing.
-- Follow the target repo's existing conventions.
-- No AI slop patterns: no "delve", "leverage", "robust", "seamless", "unlock", "elevate", "streamline", "tapestry", "holistic", "meticulous", "it's important to note". Applies to prose, comments, commit messages, and test names, not just chat.
-- No em dashes in responses, docs, or code comments; use a comma, colon, semicolon, or parentheses instead.
-- No unnecessary comments; code should be self-documenting.
-- No generic variable names (temp, data, result) without context.
-- Respond in English or Vietnamese; use Vietnamese if user types Vietnamese.
-- Never include Chinese characters in responses.
+## Output and language
 
-## Code Quality
-
-- Handle errors explicitly; no silent catches.
-- Prefer specific error types over generic `Error`.
-- Don't abstract prematurely. Duplicate first, extract when the pattern is clear.
-- Keep functions focused, one responsibility per function.
-- Prefer `const` over `let`, never `var`.
-
-## File Organization
-
-- Prefer editing existing files; create new files only when required.
-- Check neighboring files for conventions before creating new ones.
-- Delete dead code rather than commenting it out.
-- Treat secret-bearing files as off-limits. Do not read, open, print, or parse `.env`, `.env.*`, or files containing keys, tokens, credentials, certificates, or private configuration unless the user explicitly requests that specific file. Otherwise reference variable names only and ask the user to provide values or run commands that consume them without exposing contents.
-
-## Testing
-
-- Check README or `package.json`/`Cargo.toml`/`pom.xml`/`build.gradle` for test commands before assuming.
-- Run tests after completing changes if a test suite exists.
-- Never build test suites, frameworks, or fixtures on your own. The one-runnable self-check is the ceiling unless the user asks for more.
-- After modifying non-trivial logic, run the self-check the change touches.
-- Use colocated test files when the project convention does so.
-
-## Git Conventions (Conventional Commits)
-
-Format: `<type>[optional scope]: <description>`, lowercase, imperative mood, no period.
-
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`, `chore`, `revert`
-
-- Merge commits must also follow this format (e.g. `feat: merge feature-x`). Never use the default "Merge branch ..." message.
-- Project-level AGENTS.md may override with project-specific conventions.
-
-## Security
-
-- Do not read `.env` or other secret-bearing files. Reference variable names only; ask the user for values or use commands that consume them without exposing contents. This applies even for debugging.
-- Never commit secrets, API keys, tokens, or credentials. Use environment variables or vaults (`dotenv`, `op`), and scan for hardcoded secrets before every commit (`gitleaks`, `trufflehog`, or `rg` patterns).
-- Validate and sanitize at the boundary, then trust types internally. Typed schemas preferred (Zod, Valibot, Pydantic, Jakarta Validation).
-- Encode output contextually: HTML escape, SQL parameterization, shell escaping. Never concatenate user input into shell commands, SQL queries, or HTML.
-- Apply least privilege: no `sudo`, no global installs, no over-permissioned file or network access.
-- Never run a destructive command (`rm -rf`, `git reset --hard`, `git clean -fd`, recursive delete, force push) without showing it and getting a yes first.
-- Log security-relevant events; never log secrets, tokens, request bodies, or personal data.
-- Use HTTPS/TLS for all external communication and validate certificates.
-- Pin dependency versions and audit (`npm audit`, `pip-audit`, `trivy`, `osv-scanner`).
-- Review third-party skills and dependencies before installing; prefer audited sources.
-- Add security headers (CSP, HSTS, X-Frame-Options) in web responses.
-
-## Verification
-
-Before completing any task:
-
-- No secrets, keys, or tokens exposed.
-- Git commit follows conventional format (if committing).
-- Lint/typecheck passes (if available: `npm run lint`, `npm run typecheck`, `mvn verify`, `./gradlew check`).
-- Tests pass (if test suite exists).
-- This global config repo has no test suite, lint, or typecheck command; run `git diff`, manual review, and an `rg` secret scan before committing.
+- Code first, then at most three short lines. A requested report, plan, or walkthrough gets full detail.
+- Never claim a check passed unless it ran.
+- No AI slop words: `delve`, `leverage`, `robust`, `seamless`, `unlock`, `elevate`, `streamline`, `tapestry`, `holistic`, `meticulous`, `it's important to note`.
+- No em dashes. No unnecessary comments. Names say what they are.
+- Respond in English or Vietnamese; use Vietnamese if the user does.
+- Never include Chinese characters.

@@ -1,5 +1,5 @@
 ---
-description: Polish the code that stays once the codebase is too large, readable, scalable, maintainable
+description: Polish the code that stays: names, flow, shape, boundary, scale, fit, depth, locality, reuse
 agent: build
 ---
 
@@ -52,13 +52,11 @@ Make the approved moves in the order listed, one at a time. Never mix a rename w
 
 ## Prove it
 
-Find the check first: README, then package.json scripts, Makefile, justfile, pyproject.toml, Cargo.toml, pom.xml, build.gradle. Never invent one.
-
-A refactor with no check to prove behavior is unchanged is not applied: no check, no refactor. Name the check that is missing and stop.
+Find the check per AGENTS.md Verification. A refactor with no check to prove behavior is unchanged is not applied: no check, no refactor. Name the check that is missing and stop.
 
 Before a rename, grep the whole repo for the old name, including strings, config keys, migrations, and docs. A rename with a live reference is a bug.
 
-Run the check after each move, or at least after each file when it is slow, and once at the end. Never report a check as passing unless it ran.
+Run the check after each move, or at least after each file when it is slow, and once at the end.
 
 Move broke the check: revert the move. Do not bend the check to fit the move unless the move was wrong about behavior, and then say why.
 
@@ -70,4 +68,4 @@ Then `<N> moves, ~<X> lines touched. Apply which?` and stop there.
 
 Phase 2, the same one line per move prefixed done or reverted, then `<M> applied, check: <command> <result>.` Nothing to move: 'Nothing to move. Clean.'
 
-Boundaries: phase 1 changes nothing, phase 2 needs the user's yes. It polishes code that stays; /lazy-audit finds what can go and never edits.
+Boundaries: phase 1 changes nothing, phase 2 needs the user's yes.

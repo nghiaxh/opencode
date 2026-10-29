@@ -1,8 +1,13 @@
 ---
 description: Run the check that exists, report what it proved and what it did not cover
+agent: plan
 ---
 
 Tests are proof, so hand over the proof or name its absence. Read only: this command runs checks and reads code, it writes nothing.
+
+## Scope
+
+$ARGUMENTS, when given, narrows the check: a path, a package, or a failing test name. Otherwise, the change under review.
 
 ## Find the check
 

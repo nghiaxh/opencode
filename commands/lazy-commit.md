@@ -15,7 +15,7 @@ $ARGUMENTS, when given, narrows the split: a path commits only that path, a type
 
 ## Group
 
-Read the actual diff, then put each file in one type: fix, feat, refactor, perf, test, docs, style, build, ci, chore, revert. AGENTS.md holds the full list and the format rules.
+Read the actual diff, then put each file in one type. AGENTS.md holds the full list and the format rules.
 
 - One file, one type. A file carrying two types gets split by hunk.
 - Uncertain between chore and refactor: refactor.

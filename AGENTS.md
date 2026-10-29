@@ -102,7 +102,6 @@ Frontend and accessibility rules live in the installed skills, not here. Load th
 ## Output and language
 
 - Code first, then at most three short lines. A requested report, plan, or walkthrough gets full detail.
-- Never claim a check passed unless it ran.
 - No AI slop words: `delve`, `leverage`, `robust`, `seamless`, `unlock`, `elevate`, `streamline`, `tapestry`, `holistic`, `meticulous`, `it's important to note`.
 - No em dashes. No unnecessary comments. Names say what they are.
 - Respond in English or Vietnamese; use Vietnamese if the user does.

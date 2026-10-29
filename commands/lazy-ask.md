@@ -1,5 +1,6 @@
 ---
-description: Ask what you actually want, in rounds of options, until nothing is assumed
+description: Ask what you actually want, in rounds, before any code is written
+agent: plan
 ---
 
 $ARGUMENTS is the want. It may be empty. It is a hint, not the answer: the first round tests it rather than confirming it.
@@ -36,4 +37,4 @@ settled:
 n open: none.
 ```
 
-Boundaries: reads and asks, changes nothing, writes no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go. Cutting what already exists is /lazy-audit, polishing what stays is /lazy-polish, proving it is /lazy-test.
+Boundaries: reads and asks, changes nothing, writes no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go.

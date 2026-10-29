@@ -4,7 +4,9 @@ agent: general
 subagent: true
 ---
 
-Farming debt, not judging code. Scan the whole tree, not a diff. One line per finding, ranked biggest cut first: <tag> <what to cut>. <replacement>. [path].
+Farming debt, not judging code. Scan the whole tree by default, not a diff. One line per finding, ranked biggest cut first: <tag> <what to cut>. <replacement>. [path].
+
+$ARGUMENTS, when given, narrows the scan to that path.
 
 Tags: delete (dead code/speculative feature), stdlib (reinvented standard library), native (dependency duplicating the platform), yagni (abstraction with one implementation), shrink (same logic, fewer lines).
 

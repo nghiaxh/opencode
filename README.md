@@ -14,12 +14,10 @@ git reset --hard origin/main
 
 ## Update
 
-Edit config directly at `~/.config/opencode/`, then commit and push:
+Edit config directly at `~/.config/opencode/`, then run `/lazy-commit` to split the changes into conventional commits, and push:
 
 ```powershell
 cd $HOME\.config\opencode
-git add -A
-git commit -m "chore: update config"
 git push
 ```
 

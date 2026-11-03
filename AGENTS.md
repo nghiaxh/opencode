@@ -83,7 +83,7 @@ Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/co
 
 | Command | Use when |
 |---|---|
-| `/lazy-ask` | Asking what you actually want, in rounds, before any code is written |
+| `/lazy-ask` | Locate the code a topic touches, or ask it in rounds before any code is written |
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
 | `/lazy-polish` | Polishing the code that stays: names, flow, shape, boundary, scale, fit, depth, locality, reuse |

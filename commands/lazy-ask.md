@@ -1,9 +1,31 @@
 ---
-description: Ask what you actually want, in rounds, before any code is written
+description: Locate the code a topic touches, or ask what you actually want in rounds before any code is written
 agent: plan
 ---
 
-$ARGUMENTS is the want. It may be empty. It is a hint, not the answer: the first round tests it rather than confirming it.
+$ARGUMENTS decides the mode. Non-empty: locate mode. Empty: rounds mode.
+
+## Locate mode
+
+$ARGUMENTS is a topic to locate, not a want to settle. Search the repo for the code related to it and answer where it is. Nothing else.
+
+- Dispatch one explore sub-agent, medium thoroughness. Brief: search the repo for the code serving the topic, skip `node_modules`, `.git` and build output, rank hits by how directly they serve the topic, return file:line anchors only. No fixes, no plans, no patches.
+- Print one line per hit, biggest relevance first:
+
+  ```
+  <topic> lives at:
+  1. <path>:<line>, <what lives there, one line>
+  ...
+  <N> hits.
+  ```
+
+  A hit spanning a block uses its start line. No commentary between hits, no padding.
+- Nothing relevant found: say so plainly and stop. No guessing.
+- Never ask a question in locate mode. Stop after the list with one closing line: `want decisions on it? run /lazy-ask with no argument.`
+
+## Rounds mode
+
+No argument. The want said in chat is a hint, not the answer: the first round tests it rather than confirming it.
 
 ## Round
 
@@ -37,4 +59,4 @@ settled:
 n open: none.
 ```
 
-Boundaries: reads and asks, changes nothing, writes no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go.
+Boundaries: locate mode reads and stops; rounds mode reads and asks. Both change nothing and write no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go.

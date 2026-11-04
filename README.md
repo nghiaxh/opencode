@@ -28,6 +28,7 @@ opencode.jsonc              # Server and project config
 cli.json                    # Terminal client preferences, owned by the TUI
 AGENTS.md                   # Always-on instructions, the only file auto-loaded
 commands/lazy-ask.md       # /lazy-ask
+commands/lazy-prompt.md    # /lazy-prompt
 commands/lazy-commit.md     # /lazy-commit
 commands/lazy-audit.md      # /lazy-audit
 commands/lazy-polish.md     # /lazy-polish

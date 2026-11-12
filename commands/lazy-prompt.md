@@ -18,6 +18,10 @@ Read the code the task touches and trace its callers before writing a word.
 - Detect the base branch and the branch convention from git and docs. Do not assume a `dev` branch exists.
 - Read the repo's AGENTS.md for stack rules the prompt must carry: commit format, secrets, generated files, verification.
 
+## Paths
+
+Every path in the output is relative to the repo root of the session that runs the prompt (`git rev-parse --show-toplevel`), with `/` separators: `src/app/router.ts:42`. No drive letter, no home directory, no absolute prefix. The prompt must survive being handed to a session in another checkout or worktree.
+
 ## Seams
 
 Split the task into small branches that can ship alone. Manageability beats one wide branch: two areas, two layers, or two file clusters mean two branches.
@@ -34,7 +38,7 @@ Self-contained: a fresh session with no access to this conversation must execute
 
 Order, labels translated into the task's language:
 
-1. Role, repo path, stack, branch, base.
+1. Role, repo root, stack, branch, base. The repo root is the working directory of the session that runs the prompt.
 2. Numbered goal, one line each.
 3. READ FIRST: verified file list.
 4. WORK: lettered groups, exact edits, including what to remove or rename.
@@ -53,8 +57,8 @@ The task will be ambiguous somewhere. Do not ask and do not stop: list each assu
 
 In the language of the task, in this order:
 
-1. Findings: one line per area, `<path>:<line>, <what is there>`. Facts only.
-2. Branch table: branch, scope, main files, planned commits.
+1. Findings: one line per area, `<repo-relative path>:<line>, <what is there>`. Facts only.
+2. Branch table: branch, scope, main files (repo-relative paths), planned commits.
 3. Git flow: base branch, branch commands, pull request order, and which branch rebases.
 4. Open decisions.
 5. One `~~~text` block per branch, in full. Triple backticks inside stay intact.

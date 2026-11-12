@@ -67,7 +67,7 @@ In `~/.config/opencode`, there is no test, lint, or typecheck command; use `git 
 
 ## Git
 
-Format: `<type>[optional scope]: <description>`, lowercase, imperative, no period.
+Format: `<type>[optional scope]: <description>`, lowercase, imperative, no period, under 50 characters.
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `ci`, `build`, `chore`, `revert`
 
@@ -104,6 +104,7 @@ Frontend and accessibility rules live in the installed skills, not here. Load th
 ## Output and language
 
 - Code first, then at most three short lines. A requested report, plan, or walkthrough gets full detail.
+- Paths in output are repo-relative with `/` separators: `src/app/router.ts:42`. Never a drive letter, a home directory, or an absolute prefix. A path outside the repo keeps its absolute form.
 - No AI slop words: `delve`, `leverage`, `robust`, `seamless`, `unlock`, `elevate`, `streamline`, `tapestry`, `holistic`, `meticulous`, `it's important to note`.
 - No em dashes. No unnecessary comments. Names say what they are.
 - Respond in English or Vietnamese; use Vietnamese if the user does.

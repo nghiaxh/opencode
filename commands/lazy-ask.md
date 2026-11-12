@@ -25,7 +25,7 @@ A frontier question that needs a fact from the environment (does this endpoint e
 
 ## Settle
 
-The session ends when the frontier is empty: every branch visited, nothing silently assumed. Output the settled list, ask for the go, stop.
+The session ends when the frontier is empty: every branch visited, nothing silently assumed. Output the settled list, ask for the go, stop. Close with one line: `ready for branches? run /lazy-prompt with this list.`
 
 ## Never
 
@@ -45,4 +45,4 @@ settled:
 n open: none.
 ```
 
-Boundaries: ask mode reads and asks, changes nothing and writes no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go.
+Boundaries: ask reads and asks, changes nothing and writes no code. The user already made the "does this need to exist" call by asking; do not argue it. Planning the implementation is ordinary work in the session after the go.

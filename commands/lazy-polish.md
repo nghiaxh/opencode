@@ -15,7 +15,7 @@ $ARGUMENTS, when given, narrows it:
 
 - a path: that file or directory
 - a class (name, flow, shape, boundary, scale, fit, depth, locality, reuse): only that kind of move
-- `apply <n>`: make the move list's nth move, from the list this command already printed
+- `apply <n>`: make the move list's nth move, from the list printed in this session. No list in this session: run phase 1 first and wait for the numbers.
 - anything else: read it as the instruction, keep the default
 
 ## Phase 1, hunt. Read only.
@@ -38,7 +38,7 @@ A move that changes behavior is a feature or a fix, not a refactor: leave it out
 
 ## Phase 2, apply. Only after the user says yes.
 
-Make the approved moves in the order listed, one at a time. Never mix a rename with a behavior change in the same edit, so each move reads on its own in the diff.
+Make the approved moves in the order of the list, one at a time, not in the order the user named them. Never mix a rename with a behavior change in the same edit, so each move reads on its own in the diff.
 
 ## Never
 
@@ -68,4 +68,4 @@ Then `<N> moves, ~<X> lines touched. Apply which?` and stop there.
 
 Phase 2, the same one line per move prefixed done or reverted, then `<M> applied, check: <command> <result>.` Nothing to move: 'Nothing to move. Clean.'
 
-Boundaries: phase 1 changes nothing, phase 2 needs the user's yes.
+Boundaries: phase 1 changes nothing, phase 2 needs the user's yes. Phase 2 closes with one line: `want proof? run /lazy-test.`

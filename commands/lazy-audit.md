@@ -4,7 +4,7 @@ agent: general
 subagent: true
 ---
 
-Farming debt, not judging code. Scan the whole tree by default, not a diff. One line per finding, ranked biggest cut first: <tag> <what to cut>. <replacement>. [path].
+Farming debt, not judging code. Scan the whole tree by default, not a diff, skipping `node_modules`, `.git`, committed build output, lockfiles, and vendored directories. One line per finding, ranked biggest cut first: <tag> <what to cut>. <replacement>. [path:line].
 
 $ARGUMENTS, when given, narrows the scan to that path.
 

@@ -3,7 +3,7 @@ description: Run the check that exists, report what it proved and what it did no
 agent: plan
 ---
 
-Tests are proof, so hand over the proof or name its absence. Read only: this command runs checks and reads code, it writes nothing.
+Tests are proof, so hand over the proof or name its absence. Read only: this command runs checks and reads code, it writes no code and no new test files.
 
 ## Scope
 
@@ -35,4 +35,4 @@ One line per weak proof: `<file>:<line>, <the weak proof>. <the assertion that w
 
 End `<command> <pass|fail>, <N> run, <M> failed, <K> weak.` Then `Proven.` or `Not proven: <the missing check or the untested path>.`
 
-Boundaries: reads and runs, changes nothing, and writes no test code. To close a gap, ask, and the write happens as ordinary work in the session. Builds no suite or framework (AGENTS.md caps it at one runnable self-check), judges no design.
+Boundaries: reads and runs, changes nothing, and writes no test code. To close a gap, ask, and the write happens as ordinary work in the session. Builds no suite or framework, judges no design.

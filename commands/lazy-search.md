@@ -7,7 +7,7 @@ $ARGUMENTS is the topic to locate. Non-empty: search for it. Empty: ask for it f
 
 ## Missing topic
 
-No argument. Ask for the topic first: `question` call, one question, no options needed yet, just what they want located. That question does not count as a search round. Once the topic is heard, search below.
+No argument. Ask for the topic first: `question` call, one question, no options needed yet, just what they want located. Once the topic is heard, search below.
 
 ## Search
 
@@ -23,7 +23,7 @@ $ARGUMENTS is a topic to locate, not a want to settle. Search the repo for the c
   <N> hits.
   ```
 
-  A hit spanning a block uses its start line. No commentary between hits, no padding.
+  A hit spanning a block uses its start line. No commentary between hits, no padding. The list shows the 20 most relevant hits; `<N>` counts every hit the search found.
 - Nothing relevant found: say so plainly and stop. No guessing.
 - Never ask a question once the topic is known. Stop after the list with one closing line: `want decisions on it? run /lazy-ask.`
 

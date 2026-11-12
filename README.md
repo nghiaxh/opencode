@@ -52,7 +52,7 @@ Locate the code a topic touches, `file:line` only. With an argument it searches 
 
 ### /lazy-ask `commands/lazy-ask.md`
 
-Ask what you actually want in rounds before any code is written. The want is a hint, not the answer: the first round tests it rather than confirming it. Each round asks the whole frontier in one `question` call, two to four options per question with the recommended one first, then recomputes. It ends with the settled list and the go. Without an argument it asks for the want first. Read only.
+Ask what you actually want in rounds before any code is written. The want is a hint, not the answer: the first round tests it rather than confirming it. Each round asks the whole frontier in one `question` call, two to four options per question with the recommended one first, then recomputes. It ends with the settled list and the go. Without an argument it asks for the want first. The settled list is what `/lazy-prompt` takes as the task. Read only.
 
 ```text
 /lazy-ask <want>
@@ -60,7 +60,7 @@ Ask what you actually want in rounds before any code is written. The want is a h
 
 ### /lazy-prompt `commands/lazy-prompt.md`
 
-Turn a task into per-branch implementation prompts a fresh agent can run without this conversation. It reads the code the task touches, splits it into small independently shippable branches, and prints one self-contained prompt per branch. Read only.
+Turn a task into per-branch implementation prompts a fresh agent can run without this conversation. It reads the code the task touches, splits it into small independently shippable branches, and prints one self-contained prompt per branch. Paths in the prompts are repo-relative, so a prompt survives being run in another checkout. Read only.
 
 ```text
 /lazy-prompt <task>

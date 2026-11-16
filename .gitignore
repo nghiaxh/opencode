@@ -3,5 +3,6 @@ package.json
 package-lock.json
 bun.lock
 service.json
+tui.json
 skills
 skills-lock.json

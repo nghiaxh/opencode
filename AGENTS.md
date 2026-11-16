@@ -21,6 +21,8 @@ OpenCode V2 auto-loads `AGENTS.md`; it does not read `CLAUDE.md`. Nested files l
 
 Ask one question only when two readings change scope or public behavior. Otherwise act.
 
+- Settle what is actually wanted by asking in rounds before coding; the stated want is a hint, not the answer.
+
 ## Simplicity ladder
 
 Stop at the first rung that holds:
@@ -84,15 +86,13 @@ Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/co
 | Command | Use when |
 |---|---|
 | `/lazy-search` | Locate the code a topic touches, file:line only |
-| `/lazy-ask` | Ask what you actually want in rounds before any code is written |
 | `/lazy-prompt` | Turning a task into per-branch implementation prompts an agent can run cold, read-only |
 | `/lazy-commit` | Splitting working-tree changes into separate conventional commits per change type |
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
 | `/lazy-polish` | Polishing the code that stays: names, flow, shape, boundary, scale, fit, depth, locality, reuse |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
-| `/lazy-teach` | Teaching a topic to mastery by Socratic questioning, skill map, spaced review, final assessment |
 
-`/lazy-search` finds where a topic lives, `/lazy-ask` turns a want into settled decisions, `/lazy-prompt` turns the work into small independent branches an agent can run cold, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
+`/lazy-search` finds where a topic lives, `/lazy-prompt` turns the work into small independent branches an agent can run cold, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
 
 ### Skills
 

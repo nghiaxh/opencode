@@ -7,7 +7,7 @@ Read only. The output is prompts, not code: never edit a file, create a branch, 
 
 ## Task
 
-$ARGUMENTS. Empty: the task already in this conversation, including decisions from /lazy-ask or a report the user pasted. Everything the prompts need must come from the code or the task; nothing is "as discussed above".
+$ARGUMENTS. Empty: the task already in this conversation, including settled decisions or a report the user pasted. Everything the prompts need must come from the code or the task; nothing is "as discussed above".
 
 ## Research
 

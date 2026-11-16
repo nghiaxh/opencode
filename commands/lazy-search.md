@@ -25,7 +25,7 @@ $ARGUMENTS is a topic to locate, not a want to settle. Search the repo for the c
 
   A hit spanning a block uses its start line. No commentary between hits, no padding. The list shows the 20 most relevant hits; `<N>` counts every hit the search found.
 - Nothing relevant found: say so plainly and stop. No guessing.
-- Never ask a question once the topic is known. Stop after the list with one closing line: `want decisions on it? run /lazy-ask.`
+- Never ask a question once the topic is known. Stop after the list with one closing line: `want to settle decisions? ask in rounds, then run /lazy-prompt.`
 
 ## Never
 

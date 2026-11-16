@@ -90,6 +90,7 @@ Slash commands live in `~/.config/opencode/commands/` globally and `.opencode/co
 | `/lazy-audit` | Scanning the whole repo for deletable debt, delete-first, read-only |
 | `/lazy-polish` | Polishing the code that stays: names, flow, shape, boundary, scale, fit, depth, locality, reuse |
 | `/lazy-test` | Running the check that exists and naming the paths it did not cover |
+| `/lazy-teach` | Teaching a topic to mastery by Socratic questioning, skill map, spaced review, final assessment |
 
 `/lazy-search` finds where a topic lives, `/lazy-ask` turns a want into settled decisions, `/lazy-prompt` turns the work into small independent branches an agent can run cold, then `/lazy-audit` cuts code, `/lazy-polish` polishes what survives, `/lazy-test` proves it, `/lazy-commit` splits it. They do not overlap.
 
